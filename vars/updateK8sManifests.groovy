@@ -19,11 +19,11 @@ def call(Map config = [:]) {
             git config user.email "${gitUserEmail}"
             
             # Dynamically update the App Deployment
-            sed -i "s|image: ${dockerUsername}/easyshop-app:.*|image: ${dockerUsername}/easyshop-app:${imageTag}|g" ${manifestsPath}/08-easyshop-deployment.yaml
+            sed -i "s|image: ${dockerUsername}/eks-gitops-ecommerce-app:.*|image: ${dockerUsername}/eks-gitops-ecommerce-app:${imageTag}|g" ${manifestsPath}/08-eks-gitops-ecommerce-deployment.yaml
             
             # Dynamically update the Migration Job (if it exists)
-            if [ -f "${manifestsPath}/12-migration-job.yaml" ]; then
-                sed -i "s|image: ${dockerUsername}/easyshop-migration:.*|image: ${dockerUsername}/easyshop-migration:${imageTag}|g" ${manifestsPath}/12-migration-job.yaml
+            if [ -f "${manifestsPath}/12-eks-gitops-ecommerce-migration-job.yaml" ]; then
+                sed -i "s|image: ${dockerUsername}/eks-gitops-ecommerce-migration:.*|image: ${dockerUsername}/eks-gitops-ecommerce-migration:${imageTag}|g" ${manifestsPath}/12-eks-gitops-ecommerce-migration-job.yaml
             fi
             
             # Check for changes and push
@@ -34,7 +34,7 @@ def call(Map config = [:]) {
                 git commit -m "Update image tags to ${imageTag} [ci skip]"
                 
                 # Push back to the repository specified in the Jenkinsfile
-                git remote set-url origin https://\${GIT_USERNAME}:\${GIT_PASSWORD}@\${targetRepoUrl}
+                git remote set-url origin https://${GIT_USERNAME}:\${GIT_PASSWORD}@\${targetRepoUrl}
                 git push origin HEAD:master
             fi
         """
