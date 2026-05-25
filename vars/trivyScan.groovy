@@ -3,7 +3,6 @@
 def call(Map config = [:]) {
     def imageName = config.imageName ?: error("Image name is required")
     def imageTag = config.imageTag ?: 'latest'
-    def threshold = config.threshold ?: 100
     def severity = config.severity ?: 'HIGH,CRITICAL'
     
     echo "Running Trivy security scan on ${imageName}:${imageTag}"
