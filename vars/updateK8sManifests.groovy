@@ -35,7 +35,7 @@ def call(Map config = [:]) {
                 
                 # Push back to the repository specified in the Jenkinsfile
                 git remote set-url origin https://${GIT_USERNAME}:\${GIT_PASSWORD}@\${targetRepoUrl}
-                git push origin HEAD:master
+                git push origin HEAD:main
             fi
         """
     }
