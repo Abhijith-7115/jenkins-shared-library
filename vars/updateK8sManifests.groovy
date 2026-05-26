@@ -34,7 +34,7 @@ def call(Map config = [:]) {
                 git commit -m "Update image tags to ${imageTag} [ci skip]"
                 
                 # Push back to the repository specified in the Jenkinsfile
-                git remote set-url origin https://${GIT_USERNAME}:\${GIT_PASSWORD}@\${targetRepoUrl}
+                git remote set-url origin https://\${GIT_USERNAME}:\${GIT_PASSWORD}@${targetRepoUrl}
                 git push origin HEAD:main
             fi
         """
